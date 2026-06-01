@@ -1,4 +1,3 @@
-from functions.write_file import write_file
+from functions.run_python_file import run_python_file
 
-print(write_file("calculator", "pkg/abc/lorem.txt", "wait, this isn't lorem ipsum"))
-
+print(run_python_file("calculator", "lorem.txt"))
