@@ -1,5 +1,20 @@
 import os
 max_char = 10000
+from google.genai import types
+
+schema_get_file_content = types.FunctionDeclaration(
+    name="get_file_content",
+    description="Get the content of a file (max 10000 characters) as string",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="path to the file that you want to read, dont put leading forward or backward slash",
+            ),
+        },
+    ),
+)
 
 def get_file_content(working_directory: str, file_path: str):
     try:
@@ -21,7 +36,4 @@ def get_file_content(working_directory: str, file_path: str):
     except Exception as e:
         return f"Unexpected error occured: {str(e)}"
 
-print(get_file_content("calculator", "main.py"))
-print(get_file_content("calculator", "pkg/calculator.py"))
-print(get_file_content("calculator", "/bin/cat"))
-print(get_file_content("calculator", "pkg/does_not_exist.py"))
+

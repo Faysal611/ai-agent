@@ -1,4 +1,23 @@
 import os
+from google.genai import types
+
+schema_write_file = types.FunctionDeclaration(
+    name="write_file",
+    description="write to a file in a specified directory relative to the working directory",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        file_path={
+            "directory": types.Schema(
+                type=types.Type.STRING,
+                description="path to the file that you want to write to, dont put leading forward or backward slash",
+            ),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="what you want to write in the file",
+            ),
+        },
+    ),
+)
 
 def write_file(working_directory: str, file_path: str, content: str) -> str:
     abs_working_dir = os.path.abspath(working_directory)
@@ -20,4 +39,3 @@ def write_file(working_directory: str, file_path: str, content: str) -> str:
             return f'Successfully wrote to "{file_path}" ({num} characters written)'
     except Exception as e:
         return f"Error occured: {str(e)}"
-
