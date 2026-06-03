@@ -3,6 +3,7 @@ import os
 import sys
 from google.genai import types
 from available_function import available_functions
+from functions import call_function
 
 def main():
     if len(sys.argv) < 2:
@@ -22,6 +23,9 @@ You are a helpful AI coding agent.
 When a user asks a question or makes a request, make a function call plan. You can perform the following operations:
 
 - List files and directories
+- Read file contents
+- Write or overwrite files
+- Execute Python files with optional arguments
 
 All paths you provide should be relative to the working directory. You do not need to specify the working directory in your function calls as it is automatically injected for security reasons.
 """
@@ -34,18 +38,18 @@ All paths you provide should be relative to the working directory. You do not ne
             system_instruction=sys_prompt
             )
     )
-    
+
     if verbose:
         print(response.text)
         print(f"User Prompt: {prompt}")
         print(f"Prompt token: {response.usage_metadata.prompt_token_count}")
         print(f"Response token: {response.usage_metadata.candidates_token_count}")
 
-
     if response.function_calls:
         for function_call in response.function_calls:
             print(f"Calling function: {function_call.name}({function_call.args})")
+            
     else:
         print(response.text)
-        
+
 main()
