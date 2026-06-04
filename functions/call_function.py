@@ -4,6 +4,7 @@ from functions.get_files_info import get_files_info
 from functions.get_file_content import get_file_content
 from functions.write_file import write_file
 from functions.run_python_file import run_python_file
+from root import root_folder
 
 def call_function(
     function_call: types.FunctionCall, verbose: bool = False
@@ -34,7 +35,7 @@ def call_function(
         )
 
     args = dict(function_call.args) if function_call.args else {}
-    args["working_directory"] = "./project"
+    args["working_directory"] = root_folder
     result = function_map[function_name](**args)
     from google.genai import types
 
