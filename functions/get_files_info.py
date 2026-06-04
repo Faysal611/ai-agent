@@ -42,4 +42,3 @@ def get_files_info(working_directory: str, directory: str = ".") -> str:
     except Exception as e:
         return f"Error: An unexpected error occured: {str(e)}"
 
-get_files_info("calculator")

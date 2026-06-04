@@ -34,7 +34,7 @@ def call_function(
         )
 
     args = dict(function_call.args) if function_call.args else {}
-    args["working_directory"] = "./calculator"
+    args["working_directory"] = "./project"
     result = function_map[function_name](**args)
     from google.genai import types
 
